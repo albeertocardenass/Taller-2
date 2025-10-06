@@ -1,0 +1,28 @@
+<html>
+<head>
+    <title>TALLER 2</title>
+</head>
+<style></style>
+<body>
+    <h1>Taller 2 - GitHub, Compartir archivos</h1>
+    <table id="miTabla" border="1">
+<script>
+    fetch("libros.xml")
+        .then(res => res.text())
+        .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+        .then(data => {
+            var registros = data.getElementsByTagName("Row");
+            const l = registros.length;
+            const tabla = document.getElementById("miTabla");
+            var cadena = "<tr><th width='70%'>TITULO</th><th>DISCIPLINA</th></tr>";
+            for (var i = 0; i < l; i++) {
+                const titulo = registros[i].getElementsByTagName("TITULO")[0].textContent;
+                const dis = registros[i].getElementsByTagName("DISCIPLINA")[0].textContent;
+                cadena += "<tr><td>" + titulo + "</td><td>" + dis + "</td></tr>";
+            }
+            tabla.innerHTML = cadena;
+        });
+</script>
+    </table>
+</body>
+</html>
